@@ -1,6 +1,9 @@
 package com.pivovarit.movies.domain;
 
-class MovieService {
+import com.pivovarit.movies.api.MovieDto;
+import com.pivovarit.movies.api.MovieTypeDto;
+
+public class MovieService {
 
     private final MovieCreator movieCreator;
     private final MovieRepository movieRepository;
@@ -8,5 +11,9 @@ class MovieService {
     public MovieService(MovieCreator movieCreator, MovieRepository movieRepository) {
         this.movieCreator = movieCreator;
         this.movieRepository = movieRepository;
+    }
+
+    public MovieDto getMovie(Long id) {
+        return new MovieDto(id, "Spiderman", new MovieTypeDto("NEW"));
     }
 }
