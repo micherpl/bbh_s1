@@ -5,6 +5,12 @@ import com.pivovarit.movies.api.MovieTypeDto;
 
 public class MovieFacade {
 
+    public MovieFacade(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
+
+    private final MovieRepository movieRepository;
+
     public MovieDto getMovie(Long id) {
         return null;
     }
