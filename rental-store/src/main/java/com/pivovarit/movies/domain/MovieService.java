@@ -3,7 +3,7 @@ package com.pivovarit.movies.domain;
 import com.pivovarit.movies.api.MovieDto;
 import com.pivovarit.movies.api.MovieTypeDto;
 
-public class MovieService {
+class MovieService {
 
     private final MovieCreator movieCreator;
     private final MovieRepository movieRepository;
