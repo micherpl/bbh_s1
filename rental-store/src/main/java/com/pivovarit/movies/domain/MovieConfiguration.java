@@ -8,11 +8,16 @@ class MovieConfiguration {
 
     @Bean
     MovieRepository movieRepository() {
-        return new NullMovieRepository();
+        return new InMemoryMovieRepository();
     }
 
     @Bean
     MovieService movieService(MovieRepository movieRepository){
         return new MovieService(new MovieCreator(), movieRepository);
+    }
+
+    @Bean
+    MovieFacade movieFacade() {
+        return new MovieFacade();
     }
 }
