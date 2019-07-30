@@ -1,6 +1,7 @@
 package com.bbh.details.moviedetails;
 import com.bbh.details.moviedetails.web.MovieDetails;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class MovieDetailsApplicationTests {
 		MovieDetails forObject = testRestTemplate
 		.getForObject(format("http://localhost:%d/api/details/42", port), MovieDetails.class);
 
+		MovieDetails forObject2 = testRestTemplate
+		.getForObject(format("http://localhost:%d/api/details/42", port), MovieDetails.class);
+
+		System.out.println(forObject.equals(forObject2));
+		Assertions.assertThat(forObject).isEqualToComparingFieldByField(forObject2);
 		System.out.println(responseEntity.getBody());
 	}
 
