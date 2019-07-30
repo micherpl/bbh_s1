@@ -12,13 +12,14 @@ public class MovieFacade {
     private final MovieRepository movieRepository;
 
     public MovieDto getMovie(Long id) {
-        return null;
+        return MovieCreator.from(movieRepository.findById(new MovieId(id)));
     }
 
     public MovieDto getMovie(String title) {
-        return null;
+        return MovieCreator.from(movieRepository.findByTitle(title).get()); // get() is temporary
     }
 
     public void addMovie(MovieDto movie) {
+        movieRepository.save(MovieCreator.from(movie));
     }
 }

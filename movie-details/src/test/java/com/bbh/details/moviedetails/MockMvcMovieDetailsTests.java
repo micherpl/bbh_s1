@@ -18,8 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class MockMvcMovieDetailsTests {
 
-
-
     @Autowired
     private MockMvc mockMvc;
 

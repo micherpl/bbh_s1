@@ -16,6 +16,11 @@ class InMemoryMovieRepository implements MovieRepository {
     }
 
     @Override
+    public Movie findById(MovieId id) {
+        return movies.get(id.getId());
+    }
+
+    @Override
     public Collection<Movie> findAll() {
         return movies.values();
     }
