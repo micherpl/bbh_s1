@@ -18,6 +18,6 @@ class MovieConfiguration {
 
     @Bean
     MovieFacade movieFacade() {
-        return new MovieFacade(new InMemoryMovieRepository());
+        return new MovieFacade(id -> null ,new InMemoryMovieRepository());
     }
 }
