@@ -1,12 +1,15 @@
 package com.pivovarit.movies.domain;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 class MovieConfiguration {
 
     @Bean
+    @Profile("in-mem")
     MovieRepository movieRepository() {
         return new InMemoryMovieRepository();
     }
@@ -17,7 +20,19 @@ class MovieConfiguration {
     }
 
     @Bean
-    MovieFacade movieFacade() {
-        return new MovieFacade(id -> null ,new InMemoryMovieRepository());
+    MovieFacade movieFacade(MovieDetailsRepository movieDetailsRepository) {
+        return new MovieFacade(movieDetailsRepository ,new InMemoryMovieRepository());
+    }
+
+    @Bean
+    @Profile("prod")
+    MovieDetailsRepository movieDetailsRepository(@Value("${service.movie-details.url}") String url) {
+        return new RestTemplateMovieDetailsRepository(url);
+    }
+
+    @Bean
+    @Profile("in-mem")
+    MovieDetailsRepository inMemMovieDetailsRepository() {
+        return new InMemoryMovieDetailsRepository();
     }
 }

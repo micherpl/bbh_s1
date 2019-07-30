@@ -1,6 +1,7 @@
 package com.pivovarit.movies.domain;
 
 import com.pivovarit.movies.api.MovieDto;
+import com.pivovarit.movies.api.MovieWithDetailsDto;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class SpringBootIntegrationTest {
 
     @Test
     public void name() {
-        MovieDto movie = movieFacade.getMovie(42L);
+        MovieWithDetailsDto movie = movieFacade.getMovie(42L);
 
         Assertions.assertThat(movie).isNull();
     }

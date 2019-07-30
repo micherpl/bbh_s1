@@ -9,6 +9,7 @@ class MovieDetailsController {
 
     @GetMapping("/api/details/{id}")
     MovieDetails details(@PathVariable Long id) {
+        System.out.println("Received request for id: " + id);
         return new MovieDetails("Details of id: " + id);
     }
 
