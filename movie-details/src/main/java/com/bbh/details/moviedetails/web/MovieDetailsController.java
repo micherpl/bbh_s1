@@ -12,16 +12,9 @@ class MovieDetailsController {
         return new MovieDetails("Details of id: " + id);
     }
 
-    static class MovieDetails {
-        private final String details;
-
-        MovieDetails(String details) {
-            this.details = details;
-        }
-
-        public String getDetails() {
-            return details;
-        }
+    @GetMapping("/ping")
+    String ping() {
+        return "pong";
     }
 }
 
