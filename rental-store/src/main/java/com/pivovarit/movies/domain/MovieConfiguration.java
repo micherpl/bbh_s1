@@ -35,8 +35,13 @@ class MovieConfiguration {
     }
 
     @Bean
-    MovieFacade movieFacade(MovieDetailsRepository movieDetailsRepository, MovieRepository movieRepository) {
-        return new MovieFacade(movieDetailsRepository, movieRepository);
+    MoviePriceCalculator moviePriceCalculator() {
+        return new MoviePriceCalculator(1, 1, 1); //TODO
+    }
+
+    @Bean
+    MovieFacade movieFacade(MovieDetailsRepository movieDetailsRepository, MovieRepository movieRepository, MoviePriceCalculator moviePriceCalculator) {
+        return new MovieFacade(movieDetailsRepository, moviePriceCalculator, movieRepository);
     }
 
     @Bean
@@ -52,7 +57,7 @@ class MovieConfiguration {
     }
 
     @Bean
-    @Profile({"in-mem","jdbc", "jpa"})
+    @Profile({"in-mem", "jdbc", "jpa"})
     MovieDetailsRepository inMemMovieDetailsRepository() {
         return new InMemoryMovieDetailsRepository();
     }

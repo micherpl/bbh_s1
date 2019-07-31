@@ -1,6 +1,8 @@
 package com.pivovarit.movies.domain;
 
 import com.pivovarit.movies.api.MovieDto;
+import com.pivovarit.movies.api.MovieIdDto;
+import com.pivovarit.movies.api.MovieNotFoundException;
 import com.pivovarit.movies.api.MovieTypeDto;
 import com.pivovarit.movies.api.MovieWithDetailsDto;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class MovieFacade {
 
     private final MovieDetailsRepository movieDetailsRepository;
+    private final MoviePriceCalculator moviePriceCalculator;
     private final MovieRepository movieRepository;
 
     public Optional<MovieWithDetailsDto> getMovie(Long id) {
@@ -24,6 +27,12 @@ public class MovieFacade {
     public Optional<MovieDto> getMovie(String title) {
         return movieRepository.findByTitle(title)
           .map(MovieCreator::from);
+    }
+
+    public int getPrice(MovieIdDto id) {
+        return movieRepository.findById(new MovieId(id.getMovieId()))
+          .map(moviePriceCalculator::calculatePrice)
+          .orElseThrow(MovieNotFoundException::new);
     }
 
     public void addMovie(MovieDto movie) {
