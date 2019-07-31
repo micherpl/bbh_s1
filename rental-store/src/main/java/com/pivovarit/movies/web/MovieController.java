@@ -1,7 +1,5 @@
 package com.pivovarit.movies.web;
 
-import com.pivovarit.movies.api.MovieDto;
-import com.pivovarit.movies.api.MovieNotFoundException;
 import com.pivovarit.movies.api.MovieWithDetailsDto;
 import com.pivovarit.movies.domain.MovieFacade;
 import org.springframework.http.CacheControl;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -41,4 +38,6 @@ class MovieController {
               .build();
         }
     }
+
+    //@GetMapping("/{id}/price)
 }
