@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class MovieFacade {
@@ -17,6 +19,13 @@ public class MovieFacade {
     private final MovieDetailsRepository movieDetailsRepository;
     private final MoviePriceCalculator moviePriceCalculator;
     private final MovieRepository movieRepository;
+
+    public Collection<MovieDto> findAll() {
+        return movieRepository.findAll()
+          .stream()
+          .map(m -> MovieCreator.from(m))
+          .collect(Collectors.toList());
+    }
 
     public Optional<MovieWithDetailsDto> getMovie(Long id) {
         MovieDetails details = movieDetailsRepository.findById(id);
