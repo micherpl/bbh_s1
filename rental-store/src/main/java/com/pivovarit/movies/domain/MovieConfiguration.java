@@ -55,13 +55,12 @@ class MovieConfiguration {
     }
 
     @Bean
-    @Profile("in-mem")
     MovieRepository inMemMovieRepository() {
         return new InMemoryMovieRepository();
     }
 
     @Bean
-    @Profile({"in-mem", "jdbc", "jpa"})
+    //@Profile({"in-mem", "jdbc", "jpa"})
     MovieDetailsRepository inMemMovieDetailsRepository() {
         return new InMemoryMovieDetailsRepository();
     }

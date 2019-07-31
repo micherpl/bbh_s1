@@ -11,6 +11,7 @@
     <modules>
         <module>rental-store</module>
         <module>movie-details</module>
+        <module>config-server</module>
     </modules>
 
     <properties>

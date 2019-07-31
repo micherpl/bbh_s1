@@ -19,6 +19,6 @@ class ApplicationRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        movieFacade.addMovie(new MovieDto(42L, "familiada", new MovieTypeDto("NEW")));
+        movieFacade.addMovie(new MovieDto(42L, "familiada", new MovieTypeDto("OLD")));
     }
 }
