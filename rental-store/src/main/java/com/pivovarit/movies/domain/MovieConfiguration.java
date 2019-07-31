@@ -35,8 +35,12 @@ class MovieConfiguration {
     }
 
     @Bean
-    MoviePriceCalculator moviePriceCalculator() {
-        return new MoviePriceCalculator(1, 1, 1); //TODO
+    MoviePriceCalculator moviePriceCalculator(
+      @Value("${bbh.price.new}") int newPrice,
+      @Value("${bbh.price.old}") int oldPrice,
+      @Value("${bbh.price.regular}") int regularPrice
+    ) {
+        return new MoviePriceCalculator(oldPrice, newPrice, regularPrice);
     }
 
     @Bean

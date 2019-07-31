@@ -1,7 +1,9 @@
 package com.pivovarit.movies.web;
 
+import com.pivovarit.movies.api.MovieIdDto;
 import com.pivovarit.movies.api.MovieWithDetailsDto;
 import com.pivovarit.movies.domain.MovieFacade;
+import lombok.Data;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieWithDetailsDto> ping(@PathVariable Long id) {
+    public ResponseEntity<MovieWithDetailsDto> getMovie(@PathVariable Long id) {
         Optional<MovieWithDetailsDto> movie = movieFacade.getMovie(id);
 
         if (movie.isPresent()) {
@@ -39,5 +41,13 @@ class MovieController {
         }
     }
 
-    //@GetMapping("/{id}/price)
+    @GetMapping("/{id}/price")
+    public MoviePrice getPrice(@PathVariable Long id) {
+        return new MoviePrice(movieFacade.getPrice(new MovieIdDto(id)));
+    }
+
+    @Data
+    public static class MoviePrice {
+        private final int price;
+    }
 }
