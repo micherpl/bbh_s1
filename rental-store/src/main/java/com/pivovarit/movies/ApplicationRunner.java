@@ -3,6 +3,7 @@ package com.pivovarit.movies;
 import com.pivovarit.movies.api.MovieDto;
 import com.pivovarit.movies.api.MovieTypeDto;
 import com.pivovarit.movies.domain.MovieFacade;
+import com.pivovarit.movies.domain.SpringDataMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -17,10 +18,11 @@ class ApplicationRunner implements CommandLineRunner {
     @Autowired
     private MovieFacade movieFacade;
 
+    @Autowired
+    private SpringDataMovieRepository springDataMovieRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        movieFacade.addMovie(new MovieDto(1L, "Spiderman1", new MovieTypeDto("OLD")));
-        movieFacade.addMovie(new MovieDto(2L, "Spiderman2", new MovieTypeDto("OLD")));
-        movieFacade.addMovie(new MovieDto(3L, "Spiderman3", new MovieTypeDto("NEW")));
+        System.out.println();
     }
 }

@@ -15,7 +15,7 @@ class JdbcTemplateMovieRepository implements MovieRepository {
 
     @Override
     public void save(Movie movie) {
-        jdbcTemplate.update("INSERT INTO movie VALUES (?,?,?,?)", movie.getId().getId(), movie.getTitle(), movie.getType().toString(), 2020);
+        jdbcTemplate.update("INSERT INTO movie VALUES (?,?,?)", movie.getId().getId(), movie.getTitle(), movie.getType().toString());
     }
 
     @Override

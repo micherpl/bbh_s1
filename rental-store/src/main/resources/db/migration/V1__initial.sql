@@ -1,7 +1,6 @@
 CREATE TABLE movie
 (
     id BIGSERIAL NOT NULL PRIMARY KEY,
-    title TEXT    NOT NULL,
-    type  TEXT    NOT NULL,
-    year  INTEGER NOT NULL
+    title TEXT NOT NULL,
+    type  TEXT NOT NULL
 );

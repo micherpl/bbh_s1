@@ -24,6 +24,12 @@ class MovieConfiguration {
     }
 
     @Bean
+    @Profile("jpa")
+    MovieRepository jpaMovieRepository(SpringDataMovieRepository springDataMovieRepository) {
+        return new JpaMovieRepository(springDataMovieRepository);
+    }
+
+    @Bean
     MovieService movieService(MovieRepository movieRepository) {
         return new MovieService(new MovieCreator(), movieRepository);
     }
@@ -46,7 +52,7 @@ class MovieConfiguration {
     }
 
     @Bean
-    @Profile({"in-mem","jdbc"})
+    @Profile({"in-mem","jdbc", "jpa"})
     MovieDetailsRepository inMemMovieDetailsRepository() {
         return new InMemoryMovieDetailsRepository();
     }

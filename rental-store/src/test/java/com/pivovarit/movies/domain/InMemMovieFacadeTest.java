@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("in-mem")
-public class MovieFacadeTest {
+public class InMemMovieFacadeTest {
 
     @Autowired
     private MovieFacade movieFacade;
