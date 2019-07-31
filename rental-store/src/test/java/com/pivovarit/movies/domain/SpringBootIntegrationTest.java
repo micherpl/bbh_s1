@@ -22,7 +22,7 @@ public class SpringBootIntegrationTest {
 
     @Test
     public void name() {
-        MovieWithDetailsDto movie = movieFacade.getMovie(42L);
+        MovieWithDetailsDto movie = movieFacade.getMovie(42L).get();
 
         Assertions.assertThat(movie).isNull();
     }

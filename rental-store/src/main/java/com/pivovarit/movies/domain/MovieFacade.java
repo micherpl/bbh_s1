@@ -7,19 +7,23 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class MovieFacade {
 
     private final MovieDetailsRepository movieDetailsRepository;
     private final MovieRepository movieRepository;
 
-    public MovieWithDetailsDto getMovie(Long id) {
+    public Optional<MovieWithDetailsDto> getMovie(Long id) {
         MovieDetails details = movieDetailsRepository.findById(id);
-        return MovieCreator.from(movieRepository.findById(new MovieId(id)), details.getDetails());
+        return movieRepository.findById(new MovieId(id))
+          .map(m -> MovieCreator.from(m, details.getDetails()));
     }
 
-    public MovieDto getMovie(String title) {
-        return MovieCreator.from(movieRepository.findByTitle(title).get()); // get() is temporary
+    public Optional<MovieDto> getMovie(String title) {
+        return movieRepository.findByTitle(title)
+          .map(MovieCreator::from);
     }
 
     public void addMovie(MovieDto movie) {

@@ -10,14 +10,13 @@ class InMemoryMovieRepository implements MovieRepository {
     private final ConcurrentMap<Long, Movie> movies = new ConcurrentHashMap<>();
 
     @Override
-    public MovieId save(Movie movie) {
+    public void save(Movie movie) {
         movies.put(movie.getId().getId(), movie);
-        return movie.getId();
     }
 
     @Override
-    public Movie findById(MovieId id) {
-        return movies.get(id.getId());
+    public Optional<Movie> findById(MovieId id) {
+        return Optional.ofNullable(movies.get(id.getId()));
     }
 
     @Override

@@ -1,33 +1,36 @@
 package com.pivovarit.movies.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
 class MovieConfiguration {
 
-    @Autowired
-    private DataSource dataSource;
-
     @Bean
-    @Profile("in-mem")
-    MovieRepository movieRepository() {
-        return new InMemoryMovieRepository();
+    @Profile("jdbc")
+    JdbcTemplate jdbcTemplate(DataSource datasource) {
+        return new JdbcTemplate(datasource);
     }
 
     @Bean
-    MovieService movieService(MovieRepository movieRepository){
+    @Profile("jdbc")
+    MovieRepository movieRepository(JdbcTemplate jdbc) {
+        return new JdbcTemplateMovieRepository(jdbc);
+    }
+
+    @Bean
+    MovieService movieService(MovieRepository movieRepository) {
         return new MovieService(new MovieCreator(), movieRepository);
     }
 
     @Bean
-    MovieFacade movieFacade(MovieDetailsRepository movieDetailsRepository) {
-        return new MovieFacade(movieDetailsRepository ,new InMemoryMovieRepository());
+    MovieFacade movieFacade(MovieDetailsRepository movieDetailsRepository, MovieRepository movieRepository) {
+        return new MovieFacade(movieDetailsRepository, movieRepository);
     }
 
     @Bean
@@ -38,6 +41,12 @@ class MovieConfiguration {
 
     @Bean
     @Profile("in-mem")
+    MovieRepository inMemMovieRepository() {
+        return new InMemoryMovieRepository();
+    }
+
+    @Bean
+    @Profile({"in-mem","jdbc"})
     MovieDetailsRepository inMemMovieDetailsRepository() {
         return new InMemoryMovieDetailsRepository();
     }
