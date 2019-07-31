@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Profile("jpa")
 class JpaMovieRepository implements MovieRepository {
 
     private final SpringDataMovieRepository springDataMovieRepository;
